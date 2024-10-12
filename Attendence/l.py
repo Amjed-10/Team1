@@ -21,7 +21,7 @@ with open(modified_json_file_path, 'r') as file:
 
 custom_objects = {
     'DepthwiseConv2D': tf.keras.layers.DepthwiseConv2D,
-    'Functional': tf.keras.models.Model  # تمرير 'Functional' كـ custom object
+    'Functional': tf.keras.models.Model 
 }
 
 model = model_from_json(loaded_model_json, custom_objects=custom_objects)
