@@ -1,22 +1,17 @@
 <?php
-// الاتصال بقاعدة البيانات
-require 'db_connect.php'; // تأكد من تعديل مسار db_connect.php
+require 'db_connect.php'; db_connect.php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // الحصول على التاريخ من النموذج
     $attendance_date = $_POST['attendance_date'];
     
-    // تحويل التاريخ إلى صيغة ملائمة كاسم جدول
     $formatted_date = str_replace('-', '_', $attendance_date);
     $tableName = "attendance_" . $formatted_date;
 
-    // التحقق من وجود الملف المرفوع
     if (isset($_FILES['file']['tmp_name'])) {
         $file = $_FILES['file']['tmp_name'];
         $fileHandle = fopen($file, 'r');
 
         if ($fileHandle !== false) {
-            // إنشاء جدول للحضور في حالة عدم وجوده
             $createTableQuery = "
                 CREATE TABLE IF NOT EXISTS $tableName (
                     id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -26,13 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ";
             $mysqli->query($createTableQuery);
 
-            // قراءة البيانات من ملف CSV
             $rowsInserted = 0;
             while (($data = fgetcsv($fileHandle, 1000, ',')) !== false) {
                 $student_name = $data[0];
                 $class_id = $data[1];
 
-                // إدخال البيانات إلى جدول الحضور
                 $query = "INSERT INTO $tableName (student_name, class_id) VALUES (?, ?)";
                 $stmt = $mysqli->prepare($query);
                 $stmt->bind_param('ss', $student_name, $class_id);
@@ -159,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="header">
         <div class="container1">
             <b> NEWS : </b>
-            <marquee>😂😂 الدفعه الجديده شكلها تعبانه موت  </marquee>
+            <marquee>Team1 </marquee>
         </div>
     </div>
     
