@@ -21,8 +21,6 @@ The chatbot, powered by GPT-4, is trained with questions and answers in Modern S
 ### 3. Substitute Class Management System
 Mr. Ahmed Fouad, the scheduling expert, uses this system to manage substitute classes. Teachers are notified of substitute classes and reminded of their sessions to prevent delays. Additionally, the system automatically rings the school bell for each class and break, reducing the need for manual intervention.
 
-![Class Management System](./path_to_image/A_web-based_class_management_system_showing_a_time.png)
-
 ---
 
 ## Sprint Breakdown
