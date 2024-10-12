@@ -16,7 +16,6 @@ This system assists not only enrolled students but also prospective ones. For ne
 
 The chatbot, powered by GPT-4, is trained with questions and answers in Modern Standard Arabic, Egyptian Arabic, and English. It was fine-tuned through effective *prompt engineering*, tailoring the system to provide accurate responses to school-related queries. The chatbot can assist users in multiple languages depending on their preference, improving the user experience for students and applicants alike.
 
-![Chatbot System](./path_to_image/A_virtual_AI-powered_chatbot_system_helping_studen.png)
 
 ### 3. Substitute Class Management System
 Mr. Ahmed Fouad, the scheduling expert, uses this system to manage substitute classes. Teachers are notified of substitute classes and reminded of their sessions to prevent delays. Additionally, the system automatically rings the school bell for each class and break, reducing the need for manual intervention.
