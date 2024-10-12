@@ -9,7 +9,7 @@ Using AI and embedded systems, the system identifies attendance at the school ga
 *Enhanced Details:*
 Once the attendance is taken, the data is automatically stored in an Excel sheet that organizes students based on their grade level (Junior, Wheeler, or Senior). This file is securely uploaded to a school portal accessible only to authorized personnel like the principal, vice principal, or specific staff members. The system provides the capability to search and filter records by date and class. This allows for tracking student attendance accurately and efficiently. Authorized users can review the attendance data, helping maintain school records and making informed decisions.
 
-![Attendance System](./path_to_image/A_high-tech_school_gate_with_a_security_camera_and.png)
+![2024-10-12online-video-cutter com-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/ce2ebda6-12ad-459e-ac7b-0ad4e83b8aec)
 
 ### 2. Student Assistance System
 This system assists not only enrolled students but also prospective ones. For new applicants, the chatbot provides information about the school’s admission process, required documents, registration steps, and deadlines. It also offers guidance on subjects, school culture, projects, competitions, and extracurricular activities.
