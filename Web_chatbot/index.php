@@ -184,7 +184,7 @@
     <div class="header">
         <div class="container1">
         <b> NEWS : </b>
-        <marquee>😂😂 الدفعه الجديده شكلها تعبانه موت  </marquee>
+        <marquee>Team1 </marquee>
         </div>
     </div>
     <!------ Header HTML Ends ------->
