@@ -8,13 +8,10 @@ from tensorflow.keras.models import model_from_json
 from tensorflow.keras.utils import get_custom_objects
 import tensorflow as tf
 
-# تسجيل Functional ككائن مخصص
 get_custom_objects().update({'Functional': tf.keras.Model})
 
-# تحميل النموذج المضاد للتزييف
 face_cascade = cv2.CascadeClassifier("Team1_Face_recognition_model_classes.xml")
 
-# تحميل النموذج من ملف JSON
 json_file = open('modified_model.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
@@ -22,7 +19,6 @@ model = model_from_json(loaded_model_json)
 model.load_weights('Team1_Face_recognition_model.h5')
 print("Antispoofing Model loaded from disk")
 
-# تعريف قائمة الوجوه المعروفة
 known_faces = {
     "Ziad Mahmoud W1": r"Photo\(4).jpg",
     "AbdElrahman Ahmed W4": r"Photo\(2).jpg",
@@ -36,7 +32,6 @@ known_faces = {
 }
 
 
-# إعدادات الترميز للوجوه المعروفة
 known_face_encodings = []
 known_faces_names = list(known_faces.keys())
 
@@ -46,7 +41,6 @@ for name, image_path in known_faces.items():
     encoding = face_recognition.face_encodings(image_rgb)[0]
     known_face_encodings.append(encoding)
 
-# تشغيل كاميرا الفيديو
 video_capture = cv2.VideoCapture(0)
 
 face_locations = []
@@ -54,7 +48,6 @@ face_encodings = []
 face_names = []
 s = True
 
-# إعداد ملف CSV لتسجيل الحضور
 now = datetime.now()
 current_date = now.strftime("%Y-%m-%d")
 
