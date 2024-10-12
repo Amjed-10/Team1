@@ -1,39 +1,31 @@
 <?php
 session_start();
-require 'db_connect.php'; // الاتصال بقاعدة البيانات
+require 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // التحقق من أن حقول اسم المستخدم وكلمة المرور ليست فارغة
     if (!empty($username) && !empty($password)) {
-        // جلب بيانات المستخدم من قاعدة البيانات
         $stmt = $mysqli->prepare("SELECT username, password, role FROM users WHERE username = ?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $stmt->store_result();
 
-        // التحقق مما إذا كان المستخدم موجودًا
         if ($stmt->num_rows > 0) {
             $stmt->bind_result($dbUsername, $dbPassword, $role);
             $stmt->fetch();
 
-            // التحقق من كلمة المرور باستخدام password_verify
             if (password_verify($password, $dbPassword)) {
-                // تسجيل الدخول بنجاح
                 $_SESSION['username'] = $dbUsername;
                 $_SESSION['role'] = $role;
 
-                // التحقق من دور المستخدم
                 if ($role === 'admin') {
-                    // إذا كان المستخدم admin، إعادة التوجيه إلى صفحة upload.php
                     header('Location: upload_attendance.php');
                 } else {
-                    // إذا كان المستخدم ليس admin، إعادة التوجيه إلى الصفحة الرئيسية
                     header('Location: index.php');
                 }
-                exit(); // إنهاء السكربت بعد التوجيه
+                exit(); 
             } else {
                 echo "<p class='error'>Invalid password.</p>";
             }
