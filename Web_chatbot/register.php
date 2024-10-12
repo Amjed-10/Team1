@@ -6,14 +6,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $role = $_POST['role'];
 
-    // التحقق من أن كلمة المرور قوية بما يكفي
     if (strlen($password) < 8 || !preg_match("/[A-Z]/", $password) || !preg_match("/[0-9]/", $password)) {
         echo "<p class='error'>Password must be at least 8 characters long, contain an uppercase letter and a number.</p>";
     } else {
-        // تشفير كلمة المرور باستخدام password_hash
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // إدخال البيانات في قاعدة البيانات
         $stmt = $mysqli->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $hashed_password, $role);
 
