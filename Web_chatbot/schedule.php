@@ -1,31 +1,24 @@
 <?php
-// تضمين الاتصال بقاعدة البيانات
 require 'db_connect.php';
 
-// بدء الجلسة
 session_start();
 
-// التحقق مما إذا كان المستخدم مسجلاً دخول
 if (!isset($_SESSION['username'])) {
     echo "User not logged in.";
     exit();
 }
 
-// الحصول من الجلسة دور المستخدم
-$role = $_SESSION['role'] ?? null;  // التحقق من وجود الدور في الجلسة
+$role = $_SESSION['role'] ?? null;  
 
-// إنشاء متغير لتخزين الجدول
 $schedules = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $day = $_POST['day'] ?? null;
-    $teacher = $_POST['teacher'] ?? null;  // الحصول على المدرس إذا كان موجودًا
+    $teacher = $_POST['teacher'] ?? null; 
 
-    // إذا كان الدور طالب
     if ($role === 'student') {
         $classId = $_POST['class_id'] ?? null;
         if ($day && $classId) {
-            // جلب الجدول للطالب بناءً على اليوم والفصل
             $query = "SELECT period, time, subject FROM student_schedules WHERE day = ? AND class_id = ?";
             $stmt = $mysqli->prepare($query);
             $stmt->bind_param("ss", $day, $classId);
@@ -35,11 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->close();
         }
     }
-    // إذا كان الدور مدرس
     elseif ($role === 'teacher') {
         $subject = $_POST['subject'] ?? null;
         if ($day && $subject && $teacher) {
-            // جلب الجدول للمدرس بناءً على اليوم والمادة والمدرس المختار
             $query = "SELECT period, time, class_id FROM teacher_schedules WHERE day = ? AND subject = ? AND teacher = ?";
             $stmt = $mysqli->prepare($query);
             $stmt->bind_param("sss", $day, $subject, $teacher);
@@ -179,7 +170,7 @@ nav a {
 <div class="header">
   <div class="container1">
     <b> NEWS : </b>
-    <marquee>😂😂 الدفعه الجديده شكلها تعبانه موت  </marquee>
+    <marquee>Team1  </marquee>
   </div>
 </div>
 <!------ Header HTML Ends ------->
@@ -217,7 +208,6 @@ nav a {
                     <select id="class_id" name="class_id" required>
                         <option value="">--Select Class--</option>
                         <?php
-                        // جلب بيانات الفصول من جدول الطلاب
                         $result = $mysqli->query("SELECT DISTINCT class_id FROM student_schedules");
                         while ($row = $result->fetch_assoc()) {
                             echo '<option value="' . htmlspecialchars($row['class_id']) . '">' . htmlspecialchars($row['class_id']) . '</option>';
@@ -231,7 +221,6 @@ nav a {
                     <select id="subject" name="subject" required>
                         <option value="">--Select Subject--</option>
                         <?php
-                        // جلب بيانات المواد من جدول المدرسين
                         $result = $mysqli->query("SELECT DISTINCT subject FROM teacher_schedules");
                         while ($row = $result->fetch_assoc()) {
                             echo '<option value="' . htmlspecialchars($row['subject']) . '">' . htmlspecialchars($row['subject']) . '</option>';
