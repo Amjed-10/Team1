@@ -1,4 +1,3 @@
-// دالة لجلب الجداول من PHP عبر AJAX
 async function loadSchedules(day, role, classId = null, subject = null) {
     const data = {
         day: day,
@@ -13,7 +12,7 @@ async function loadSchedules(day, role, classId = null, subject = null) {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: new URLSearchParams(data) // تحويل البيانات إلى تنسيق URL
+            body: new URLSearchParams(data)
         });
 
         if (!response.ok) {
@@ -27,12 +26,11 @@ async function loadSchedules(day, role, classId = null, subject = null) {
     }
 }
 
-// دالة لعرض الجداول المستلمة في الصفحة
 function displaySchedules(scheduleData, role) {
     let tableHtml = '<table><tr><th>Period</th><th>Time</th>';
     
     if (role === 'teacher') {
-        tableHtml += '<th>Class</th>'; // للمدرسين، نعرض الحقل الإضافي "الفصل"
+        tableHtml += '<th>Class</th>'; 
     }
     
     tableHtml += '</tr>';
@@ -53,7 +51,6 @@ function displaySchedules(scheduleData, role) {
     document.getElementById('schedule-container').innerHTML = tableHtml;
 }
 
-// حدث تغيير الدور (طالب أو مدرس)
 document.getElementById('role-select').addEventListener('change', function () {
     const selectedRole = this.value;
 
@@ -65,10 +62,9 @@ document.getElementById('role-select').addEventListener('change', function () {
         document.getElementById('subject-container').style.display = 'block';
     }
 
-    document.getElementById('schedule-container').innerHTML = ''; // مسح الجدول الحالي
+    document.getElementById('schedule-container').innerHTML = ''; 
 });
 
-// حدث تغيير اليوم
 document.getElementById('day-select').addEventListener('change', function () {
     const selectedDay = this.value;
     const selectedRole = document.getElementById('role-select').value;
@@ -82,7 +78,6 @@ document.getElementById('day-select').addEventListener('change', function () {
     }
 });
 
-// حدث تغيير الفصل (للطالب)
 document.getElementById('class-select').addEventListener('change', function () {
     const selectedClass = this.value;
     const selectedDay = document.getElementById('day-select').value;
@@ -91,7 +86,6 @@ document.getElementById('class-select').addEventListener('change', function () {
     loadSchedules(selectedDay, selectedRole, selectedClass);
 });
 
-// حدث تغيير المادة (للمدرس)
 document.getElementById('subject-select').addEventListener('change', function () {
     const selectedSubject = this.value;
     const selectedDay = document.getElementById('day-select').value;
