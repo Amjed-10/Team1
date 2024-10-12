@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userMessage = $_POST['message'];
 
     $data = [
-        'model' => 'gpt-4',  // أو النموذج الذي قمت بتخصيصه
+        'model' => 'gpt-4',  
         'messages' => [
             ['role' => 'system', 'content' => 'You are a helpful assistant.'],
             ['role' => 'user', 'content' => $userMessage],
@@ -83,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        // وظيفة لإضافة الرسائل إلى الشات بوكس
         function addMessageToChatbox(sender, message) {
             const chatbox = document.getElementById('chatbox');
             const msgElement = document.createElement('div');
@@ -93,7 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             chatbox.scrollTop = chatbox.scrollHeight;
         }
 
-        // إرسال الرسالة إلى الـ GPT API
         document.getElementById('send-btn').addEventListener('click', function() {
             const userMessage = document.getElementById('chatbot-input').value;
 
