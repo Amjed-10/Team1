@@ -10,13 +10,10 @@ import tensorflow as tf
 from flask import Flask, render_template, Response, request
 import pandas as pd
 
-# تسجيل Functional ككائن مخصص
 get_custom_objects().update({'Functional': tf.keras.Model})
 
-# تحميل النموذج المضاد للتزييف
 face_cascade = cv2.CascadeClassifier(r"static\model\Team1_Face_recognition_model_classes.xml")
 
-# تحميل النموذج من ملف JSON
 json_file = open(r'static\model\modified_model.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
@@ -24,7 +21,6 @@ model = model_from_json(loaded_model_json)
 model.load_weights(r'static\model\Team1_Face_recognition_model.h5')
 print("Antispoofing Model loaded from disk")
 
-# تعريف قائمة الوجوه المعروفة
 known_faces = {
     "Ziad Mahmoud S1": r"static\Photo\(4).jpg",
     "AbdElrahman Ahmed S4": r"static\Photo\(2).jpg",
@@ -37,7 +33,6 @@ known_faces = {
     "Zyad ayman S3": r"static\Photo\(1).jpg"
 }
 
-# إعدادات الترميز للوجوه المعروفة
 known_face_encodings = []
 known_faces_names = list(known_faces.keys())
 
@@ -47,34 +42,27 @@ for name, image_path in known_faces.items():
     encoding = face_recognition.face_encodings(image_rgb)[0]
     known_face_encodings.append(encoding)
 
-# إعداد Flask
 app = Flask(__name__)
 
-# إعدادات CSV الخاصة بالحضور
 now = datetime.now()
 current_date = now.strftime("%Y-%m-%d")
-data_dir = 'data'  # التأكد من أن الملفات ستكون في مجلد data
+data_dir = 'data'  
 
-# التأكد من أن مجلد data موجود
 if not os.path.exists(data_dir):
     os.makedirs(data_dir)
 
 csv_filename = f"attendance_{current_date}.csv"
 csv_filepath = os.path.join(data_dir, csv_filename)
 
-# التأكد من أن ملف CSV موجود، وإذا لم يكن موجودًا، يتم إنشاؤه
 if not os.path.exists(csv_filepath):
     with open(csv_filepath, 'w+', newline="") as f:
         inwriter = csv.writer(f)
         inwriter.writerow(["student_id", "student_name", "status", "date", "time", "class_id"])
 
-# قائمة لتسجيل أسماء الطلاب الذين تم التعرف عليهم بالفعل
 recorded_students = []
 
-# تشغيل كاميرا الفيديو
 video_capture = cv2.VideoCapture(0)
 
-# دالة للتحقق مما إذا كان الطالب قد تم تسجيله بالفعل
 def is_student_recorded(name):
     try:
         if os.path.exists(csv_filepath):
@@ -150,22 +138,18 @@ def gen_frames():
 
 @app.route('/')
 def index():
-    # صفحة HTML الرئيسية لعرض الفيديو
     return render_template('attendance_model.html')
 
 
 @app.route('/video_feed')
 def video_feed():
-    # بث الفيديو في صفحة الويب
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-# صفحة البحث عن السجلات
 @app.route('/attendance_search')
 def attendance_search():
     return render_template('attendance_search.html')
 
-# عرض السجلات بناءً على التاريخ والفصل
 @app.route('/attendance_records', methods=['GET', 'POST'])
 def attendance_records():
     if request.method == 'POST':
@@ -176,7 +160,8 @@ def attendance_records():
         class_id = request.args.get('class_id', None)
 
     if not date or not class_id:
-        return "تأكد من إدخال التاريخ والفصل", 400
+        return "Make sure to enter the date and chapter.", 400
+
 
     filename = f'attendance_{date}.csv'
     filepath = os.path.join(data_dir, filename)
@@ -188,7 +173,6 @@ def attendance_records():
             # قراءة ملف CSV
             df = pd.read_csv(filepath)
 
-            # تصفية السجلات بناءً على الفصل الدراسي
             filtered_df = df[df['class_id'] == class_id]
 
             if not filtered_df.empty:
