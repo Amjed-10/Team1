@@ -1,29 +1,23 @@
 <?php
-// تضمين الاتصال بقاعدة البيانات
 require 'db_connect1.php';
 
-// التحقق مما إذا تم إرسال طلب مع التاريخ والفصل
 if (isset($_POST['date']) && isset($_POST['class_id'])) {
     $date = $_POST['date'];
     $class_id = $_POST['class_id'];
 
-    // تحويل التاريخ إلى صيغة ملائمة كاسم جدول
     $formatted_date = str_replace('-', '_', $date);
     $tableName = "attendance_" . $formatted_date;
 
-    // التحقق مما إذا كان الجدول موجودًا
     $checkTableQuery = "SHOW TABLES LIKE '$tableName'";
     $tableExists = $mysqli->query($checkTableQuery);
 
     if ($tableExists && $tableExists->num_rows > 0) {
-        // استعلام لجلب بيانات الحضور بناءً على التاريخ والفصل
         $query = "SELECT student_name FROM $tableName WHERE class_id = ?";
         $stmt = $mysqli->prepare($query);
         $stmt->bind_param("s", $class_id);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // جلب النتائج
         $attendance_data = [];
         while ($row = $result->fetch_assoc()) {
             $attendance_data[] = $row;
@@ -31,12 +25,11 @@ if (isset($_POST['date']) && isset($_POST['class_id'])) {
 
         $stmt->close();
     } else {
-        // إذا كان الجدول غير موجود
         $attendance_data = [];
         echo "No attendance records found for the selected date.";
     }
 } else {
-    $attendance_data = []; // إذا لم يتم اختيار تاريخ أو فصل بعد
+    $attendance_data = [];
 }
 ?>
 
@@ -139,7 +132,7 @@ if (isset($_POST['date']) && isset($_POST['class_id'])) {
     <div class="header">
         <div class="container1">
             <b> NEWS : </b>
-            <marquee>😂😂 الدفعه الجديده شكلها تعبانه موت  </marquee>
+            <marquee>Team1 </marquee>
         </div>
     </div>
     
