@@ -1,0 +1,77 @@
+<!-- templates/attendance_records.html -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>سجلات الحضور</title>
+    <style>
+        body {
+            font-family: Roboto, sans-serif, Arial;
+            background-color: #f0f3fa;
+            color: #242424;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #518aa7;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        table, th, td {
+            border: 1px solid #518aa7;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #518aa7;
+            color: white;
+        }
+        nav {
+            margin-top: 20px;
+        }
+        nav a {
+            color: #518aa7;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>سجلات الحضور لليوم {{ date }} والفصل {{ class_id }}</h1>
+    {% if records %}
+<table>
+    <tr>
+        <th>الرقم</th>
+        <th>اسم الطالب</th>
+        <th>الحالة</th>
+        <th>التاريخ</th>
+        <th>الوقت</th>
+        <th>الفصل</th>
+    </tr>
+    {% for record in records %}
+    <tr>
+        <td>{{ record['student_id'] }}</td>
+        <td>{{ record['student_name'] }}</td>
+        <td>{{ record['status'] }}</td>
+        <td>{{ record['date'] }}</td>
+        <td>{{ record['time'] }}</td>
+        <td>{{ record['class_id'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>لا توجد سجلات حضور لهذا التاريخ والفصل.</p>
+{% endif %}
+
+    <nav>
+        <a href="/">الصفحة الرئيسية</a> |
+        <a href="/attendance_search">البحث مرة أخرى</a>
+    </nav>
+</body>
+</html>

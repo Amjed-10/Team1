@@ -1,0 +1,60 @@
+<!-- templates/attendance_search.html -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>البحث عن سجلات الحضور</title>
+    <style>
+        body {
+            font-family: Roboto, sans-serif, Arial;
+            background-color: #f0f3fa;
+            color: #242424;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #518aa7;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, select {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #518aa7;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #41697b;
+        }
+    </style>
+</head>
+<body>
+    <h1>البحث عن سجلات الحضور</h1>
+    <form action="/attendance_records" method="POST">
+        <label for="date">اختر التاريخ:</label>
+        <input type="date" id="date" name="date" required>
+        <br>
+        <label for="class_id">اختر الفصل:</label>
+        <select id="class_id" name="class_id" required>
+            <option value="W1">W1</option>
+            <option value="W2">W2</option>
+            <option value="W3">W3</option>
+            <option value="W4">W4</option>
+            <option value="S1">S1</option>
+            <option value="S2">S2</option>
+            <option value="S3">S3</option>
+            <option value="S4">S4</option>
+        </select>
+        <br>
+        <button type="submit">عرض السجلات</button>
+    </form>
+</body>
+</html>

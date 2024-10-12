@@ -1,0 +1,63 @@
+<!-- templates/attendance_model.html -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>نموذج الحضور</title>
+    <style>
+        body {
+            font-family: Roboto, sans-serif, Arial;
+            background-color: #f0f3fa;
+            color: #242424;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #518aa7;
+        }
+        img {
+            border: 1px solid #518aa7;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        .container {
+            display: inline-block;
+            position: relative;
+        }
+        nav {
+            margin-top: 20px;
+        }
+        nav a {
+            color: #518aa7;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #518aa7;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #41697b;
+        }
+    </style>
+</head>
+<body>
+    <h1>نظام الحضور باستخدام رؤية الحاسوب</h1>
+    <div class="container">
+        <img src="{{ url_for('video_feed') }}" width="640" height="480">
+    </div>
+    <p>يرجى الوقوف أمام الكاميرا لتسجيل حضورك.</p>
+    <nav>
+        <a href="/">الصفحة الرئيسية</a> |
+        <a href="templates\attendance_records.html">سجلات الحضور</a>
+    </nav>
+    
+    <!-- زر للانتقال إلى صفحة البحث -->
+    <button onclick="location.href='/attendance_search'">البحث عن سجلات الحضور</button>
+</body>
+</html>
