@@ -1,13 +1,10 @@
 <?php
-require 'db_connect.php'; // الاتصال بقاعدة البيانات
+require 'db_connect.php';
 
-// كلمة المرور الأصلية التي ستستخدمها لتحديث كلمة مرور admin
-$admin_password = 'Ziad@1123'; // كلمة المرور الأصلية
+$admin_password = 'Ziad@1123'; 
 
-// تشفير كلمة المرور باستخدام password_hash
 $hashed_password = password_hash($admin_password, PASSWORD_DEFAULT);
 
-// تحديث كلمة مرور admin في قاعدة البيانات
 $stmt = $mysqli->prepare("UPDATE users SET password = ? WHERE username = 'admin'");
 $stmt->bind_param('s', $hashed_password);
 
